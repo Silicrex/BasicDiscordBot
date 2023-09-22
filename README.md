@@ -18,16 +18,18 @@
 ### Bot Client
 
 * Our **bot client** is a subclass of **commands.Bot()** implemented in **CustomBot.py**. It comes with a
-* **setup_hook()** override for automatically loading all extensions in **cogs/** on startup, as well as commands for
+  **setup_hook()** override for automatically loading all extensions in **cogs/** on startup, as well as commands for
   loading, unloading, and reloading **extensions**
 * **Intents** are default aside from **message_content** being enabled, which is a required **Privileged Intent**
 
 ### BotUtility Cog
 
 * Cogs are designated to go in the **cogs/** folder
-* A **bot_utility** cog is already created that comes with the follow:
+* A **bot_utility** cog is already created that comes with the following:
     * An **on_ready()** listener which prints the **bot username** as well as **discord.py** version on startup
     * An **on_command_error()** listener which sets up a system for **ignoring already-handled errors** using an
-      **error_handled** attr, and provides basic error handling for the extension commands. Regardless of if a local
-      error handler or cog error handler resolves an exception, **on_command_error()** will still be called. To avoid
-      redundant error handling, if an error was handled in a lower-level handler, set **ctx.error_handled = True** in it
+      **error_handled** attr, and provides basic error handling for the extension commands, as well as for command
+      cooldowns. Regardless of if a local error handler or cog error handler resolves an exception,
+      **on_command_error()** will still be called. To avoid redundant error handling, if an error was handled in a
+      lower-level handler, set **ctx.error_handled = True** in it
+    * A **ping** command

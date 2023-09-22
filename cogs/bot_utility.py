@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import time
 
 
 class BotUtility(commands.Cog):
@@ -23,12 +24,25 @@ class BotUtility(commands.Cog):
         if isinstance(error, commands.CommandInvokeError):
             error = error.original
 
-        if isinstance(error, commands.ExtensionNotFound):
+        if isinstance(error, commands.CommandOnCooldown):
+            await ctx.send(f'{ctx.command} is on cooldown for another {error.retry_after:.2f} seconds')
+        elif isinstance(error, commands.ExtensionNotFound):
             await ctx.send('Extension not found')
         elif isinstance(error, commands.ExtensionAlreadyLoaded):
             await ctx.send('Extension is already loaded')
         elif isinstance(error, commands.ExtensionNotLoaded):
             await ctx.send('Extension is not loaded')
+        else:
+            print(error)
+
+    @commands.command()
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def ping(self, ctx):
+        start = time.perf_counter()
+        message = await ctx.send("Ping..")
+        end = time.perf_counter()
+        duration = (end - start) * 1000
+        await message.edit(content=f'Pong! {duration:.2f}ms')
 
 
 async def setup(bot):
