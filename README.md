@@ -1,7 +1,7 @@
 # BasicDiscordBot
 
 * This is a basic template for creating Discord bots using **discord.py**, a Python wrapper for the **Discord API**
-* It was created with discord.py version **2.9.3**
+* It was created with discord.py version **2.9.3**, Python version **3.9**
 * Read the discord.py documentation at https://discordpy.readthedocs.io/en/stable/index.html
 
 ## Basic Overview
