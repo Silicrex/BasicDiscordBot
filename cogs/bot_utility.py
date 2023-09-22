@@ -1,6 +1,6 @@
+import time
 import discord
 from discord.ext import commands
-import time
 
 
 class BotUtility(commands.Cog):
@@ -26,6 +26,8 @@ class BotUtility(commands.Cog):
 
         if isinstance(error, commands.CommandOnCooldown):
             await ctx.send(f'{ctx.command} is on cooldown for another {error.retry_after:.2f} seconds')
+        elif isinstance(error, commands.CheckFailure):
+            return
         elif isinstance(error, commands.ExtensionNotFound):
             await ctx.send('Extension not found')
         elif isinstance(error, commands.ExtensionAlreadyLoaded):
@@ -33,7 +35,15 @@ class BotUtility(commands.Cog):
         elif isinstance(error, commands.ExtensionNotLoaded):
             await ctx.send('Extension is not loaded')
         else:
-            print(error)
+            print(f'- [Error]\n'
+                  f'Class: {error.__class__}\n'
+                  f'Error Message: {error.args[0]}\n'
+                  f'- [Context]\n'
+                  f'Server: {ctx.guild}\n'
+                  f'Channel: {ctx.channel}\n'
+                  f'User: {ctx.author}\n'
+                  f'Message: {ctx.message.content}\n'
+                  f'Message ID: {ctx.message.id}')
 
     @commands.command()
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)

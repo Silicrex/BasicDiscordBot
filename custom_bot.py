@@ -1,6 +1,5 @@
-import discord
-from discord.ext import commands
 import os
+from discord.ext import commands
 
 
 class SetupCog(commands.Cog):
@@ -31,10 +30,8 @@ class SetupCog(commands.Cog):
 
 
 class CustomBot(commands.Bot):
-    def __init__(self):
-        intents = discord.Intents.default()
-        intents.message_content = True
-        super().__init__(command_prefix='$', intents=intents, case_insensitive=True)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
     async def setup_hook(self):
         await self.add_cog(SetupCog(self))
