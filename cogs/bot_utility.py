@@ -25,7 +25,7 @@ class BotUtility(commands.Cog):
             error = error.original
 
         if isinstance(error, commands.CommandOnCooldown):
-            await ctx.send(f'{ctx.command} is on cooldown for another {error.retry_after:.2f} seconds')
+            await ctx.send(f'{ctx.command} is on cooldown for another {error.retry_after:.2f} seconds', delete_after=5)
         elif isinstance(error, commands.CheckFailure):
             return
         elif isinstance(error, commands.ExtensionNotFound):
