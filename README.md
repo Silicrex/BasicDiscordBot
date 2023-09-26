@@ -20,6 +20,8 @@
 * Our **bot client** is a subclass of **commands.Bot()** implemented in **custom_bot.py**. It comes with a
   **setup_hook()** override for automatically loading all extensions in **cogs/** on startup, as well as commands for
   loading, unloading, and reloading **extensions**
+* The **cogs/** folder name is hardcoded into the function for loading extensions. If you want to change the name of the
+  folder, you will have to update the references to it
 * **Intents** are default aside from **message_content** being enabled, which is a required **Privileged Intent**
 * Basic **logging** is set up. If you don't want it, you can just remove that part from **main.py**. It's set to the
   default log_level of logging.INFO.

@@ -1,5 +1,5 @@
-import os
 from discord.ext import commands
+from cogs import EXTENSIONS
 
 
 class SetupCog(commands.Cog):
@@ -35,6 +35,6 @@ class CustomBot(commands.Bot):
 
     async def setup_hook(self):
         await self.add_cog(SetupCog(self))
-        for filename in os.listdir('cogs'):  # Load all extensions
-            if filename.endswith('.py'):
-                await self.load_extension(f'cogs.{filename[:-3]}')  # Remove file extension
+        for extension in EXTENSIONS:
+            if not extension.startswith('_'):  # If it starts with an underscore, don't load it by default
+                await self.load_extension(f'cogs.{extension}')
