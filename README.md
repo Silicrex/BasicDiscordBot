@@ -20,11 +20,21 @@
 * Our **bot client** is a subclass of **commands.Bot()** implemented in **custom_bot.py**. It comes with a
   **setup_hook()** override for automatically loading all extensions in **cogs/** on startup, as well as commands for
   loading, unloading, and reloading **extensions**
-* The **cogs/** folder name is hardcoded into the function for loading extensions. If you want to change the name of the
-  folder, you will have to update the references to it
 * **Intents** are default aside from **message_content** being enabled, which is a required **Privileged Intent**
 * Basic **logging** is set up. If you don't want it, you can just remove that part from **main.py**. It's set to the
-  default log_level of logging.INFO.
+  default log_level of logging.INFO
+
+### Cogs/Extensions
+
+* **cogs/** is where implementation of the bot's features is intended to go (the **Cogs** and **Extensions** systems
+  offer tremendous modularization and organization; Extensions also allow you to update code or selectively load/unload
+  features during runtime)
+* It is assumed that all items in **cogs/** are also set up as **extensions**, which can either be an individual
+  **Python file** or a **package**. **Extensions** require a **setup()** function (for packages, this would go in the
+  **\_\_init__.py** file)
+* The **cogs/** folder name is hardcoded into the function for loading extensions. If you want to change the name of the
+  folder, you will have to update the references to it
+* **Extensions** that have names starting with an **underscore (_)** will be excluded from being loaded on startup
 
 ### BotUtility Cog
 
