@@ -44,6 +44,7 @@ class BotUtility(commands.Cog):
                   f'User: {ctx.author}\n'
                   f'Message: {ctx.message.content}\n'
                   f'Message ID: {ctx.message.id}')
+            raise error
 
     @commands.command()
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
