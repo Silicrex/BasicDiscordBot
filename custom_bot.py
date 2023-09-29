@@ -38,3 +38,7 @@ class CustomBot(commands.Bot):
         for extension in EXTENSIONS:
             if not extension.startswith('_'):  # If it starts with an underscore, don't load it by default
                 await self.load_extension(f'cogs.{extension}')
+
+    async def close(self):
+        await super().close()
+        print('Bot shutdown')
