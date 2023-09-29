@@ -43,8 +43,14 @@
     * An **on_ready()** listener which prints the **bot username** as well as **discord.py** version on startup
     * An **on_command_error()** listener which sets up a system for **ignoring already-handled errors** using an
       **error_handled** attr, and provides basic error handling for the extension commands, command cooldowns, and check
-      fails (which are ignored). Errors that aren't handled are given a detailed print to the console.
+      fails (which are ignored). Errors that aren't handled are given a detailed print to the console
     * Regardless of if a local error handler or cog error handler resolves an exception,
       **on_command_error()** will still be called. To avoid redundant error handling, if an error was handled in a
       lower-level handler, set **ctx.error_handled = True** in it
     * A **ping** command
+
+## postgresdb
+* There is a **release branch** called **postgresdb** which has a basic **PostgreSQL** (Postgres) database compatibility setup. It uses the asynchronous Postgres/asyncio wrapper **asyncpg** (documentation: https://magicstack.github.io/asyncpg/current/index.html)
+* You will need to install **Postgres** (https://www.postgresql.org/) and set up the actual database separately
+* The **.env** file has fields for connecting to your database. There are more fields you can add if necessary, see asyncpg docs
+* It automatically sets up a **Connection Pool** on bot startup (access it with **bot.pg_pool**) and closes it on bot shutdown. **bot.pg_pool** is what is used to run SQL commands, see asyncpg docs for specifics
