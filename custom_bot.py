@@ -1,5 +1,7 @@
 from discord.ext import commands
+import asyncpg
 from cogs import EXTENSIONS
+from helpers import get_pg_login
 
 
 class SetupCog(commands.Cog):
@@ -32,9 +34,21 @@ class SetupCog(commands.Cog):
 class CustomBot(commands.Bot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.pg_pool = None
 
     async def setup_hook(self):
+        # Connect database
+        pg_login = get_pg_login()
+        self.pg_pool = await asyncpg.create_pool(**pg_login)
+
+        # Load setup cog & extensions
         await self.add_cog(SetupCog(self))
         for extension in EXTENSIONS:
             if not extension.startswith('_'):  # If it starts with an underscore, don't load it by default
                 await self.load_extension(f'cogs.{extension}')
+
+    async def close(self):
+        await super().close()
+        await self.pg_pool.close()
+        print('pg_pool closed')
+        print('Bot shutdown')

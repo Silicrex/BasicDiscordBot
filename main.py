@@ -2,7 +2,7 @@ import logging
 from pathlib import Path
 from datetime import datetime
 import discord
-from helpers import get_discord_token
+from helpers import read_env, get_discord_token
 from custom_bot import CustomBot
 
 
@@ -23,4 +23,5 @@ def main():
 
 
 if __name__ == '__main__':
+    read_env()
     main()
