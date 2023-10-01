@@ -8,10 +8,10 @@ class BotUtility(commands.Cog):
         self.bot = bot
 
     async def cog_load(self):
-        print(f'{self.__class__.__name__} loaded!')
+        print(f'{self.__class__.__name__} cog loaded!')
 
     async def cog_unload(self):
-        print(f'{self.__class__.__name__} unloaded!')
+        print(f'{self.__class__.__name__} cog unloaded!')
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -26,6 +26,8 @@ class BotUtility(commands.Cog):
 
         if isinstance(error, commands.CommandOnCooldown):
             await ctx.send(f'{ctx.command} is on cooldown for another {error.retry_after:.2f} seconds', delete_after=5)
+        elif isinstance(error, commands.CommandNotFound):
+            await ctx.send('Command not found')
         elif isinstance(error, commands.CheckFailure):
             return
         elif isinstance(error, commands.ExtensionNotFound):
