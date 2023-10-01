@@ -40,6 +40,7 @@ class CustomBot(commands.Bot):
         # Connect database
         pg_login = get_pg_login()
         self.pg_pool = await asyncpg.create_pool(**pg_login)
+        print('pg_pool loaded')
 
         # Load setup cog & extensions
         await self.add_cog(SetupCog(self))
